@@ -1,6 +1,12 @@
 # 此為 VB 學習筆記
 * 內容大量參考 [電腦程式設計教學網頁 劉陳祥老師](http://web.tnu.edu.tw/me/study/moodle/tutor/vb6/index.html)
 
+* [第 01 單元：VB 的基本概念](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-01-%E5%96%AE%E5%85%83vb-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
+* [第 02 單元：VB 的資料處理](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-02-%E5%96%AE%E5%85%83vb-%E7%9A%84%E8%B3%87%E6%96%99%E8%99%95%E7%90%86)
+* [第 03 單元：VB 的基本語法](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-03-%E5%96%AE%E5%85%83vb-%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AA%9E%E6%B3%95)
+* [第 04 單元：VB 的程式設計](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-04-%E5%96%AE%E5%85%83vb-%E7%9A%84%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88)
+* [第 05 單元：VB 的物件應用](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-05-%E5%96%AE%E5%85%83vb%E7%9A%84%E7%89%A9%E4%BB%B6%E6%87%89%E7%94%A8)
+
 # 第 01 單元：VB 的基本概念
 * 點選 檢視 > 即時運算視窗 能夠快速實驗程式片段
 
@@ -182,7 +188,7 @@ Visual Basic 撰寫程式的步驟：
 5. 選擇【Run】>【Start】功能(或按 F5)，實際測試程式。
 6. 測試正程後，選擇【File】>【Make EXE File】功能，產生執行檔。
 
-# 第 05 單元：VB的物件應用
+# 第 05 單元：VB 的物件應用
 1. 標籤(Label)
     * Label 控制項元件主要用在視窗中顯示提示訊息，常與 Text 控制項元件一起使用。
     * 屬性：Caption, Font, ForeColor, Enabled, Visible, Top/Left/Width/Height
