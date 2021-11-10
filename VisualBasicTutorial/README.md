@@ -1,11 +1,50 @@
 # 此為 VB 學習筆記
 * 內容大量參考 [電腦程式設計教學網頁 劉陳祥老師](http://web.tnu.edu.tw/me/study/moodle/tutor/vb6/index.html)
 
+## 針對此 Document
 * [第 01 單元：VB 的基本概念](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-01-%E5%96%AE%E5%85%83vb-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
 * [第 02 單元：VB 的資料處理](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-02-%E5%96%AE%E5%85%83vb-%E7%9A%84%E8%B3%87%E6%96%99%E8%99%95%E7%90%86)
 * [第 03 單元：VB 的基本語法](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-03-%E5%96%AE%E5%85%83vb-%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AA%9E%E6%B3%95)
 * [第 04 單元：VB 的程式設計](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-04-%E5%96%AE%E5%85%83vb-%E7%9A%84%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88)
 * [第 05 單元：VB 的物件應用](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-05-%E5%96%AE%E5%85%83vb%E7%9A%84%E7%89%A9%E4%BB%B6%E6%87%89%E7%94%A8)
+
+## 教學程式範例
+1. 原周長面積(1)
+2. 圓周長面積(2)
+3. 四則運算
+4. 三角形判斷計算
+5. 改變背景顏色
+6. 計算級數和
+7. 密碼檢驗程式
+8. 調色盤程式
+9. 解二次方程式
+10. 分數等第判斷
+11. Shape 的變化1
+12. Shape 的變化2
+13. 計時器的應用
+14. List 控制項應用
+15. 滑鼠畫圖程式
+16. 秀圖程式設計
+17. 多媒體動畫程式
+18. 讀取文字形檔案
+19. 功能表設計
+20. 網頁瀏覽器
+
+## 平時作業習題
+1. 溫度轉換程式
+2. 級數和程式
+3. 小小計算機程式
+4. 密碼程式設計
+5. 卷軸與滑鼠應用
+6. 電子時鐘程式
+
+## 各次測驗考題
+1. List 控制項應用
+2. 二次方程式圖解
+3. 字型變化功能表
+4. 秀圖程式設計
+5. 繞著圓周旋轉
+6. 多媒體動畫製作
 
 # 第 01 單元：VB 的基本概念
 * 點選 檢視 > 即時運算視窗 能夠快速實驗程式片段
