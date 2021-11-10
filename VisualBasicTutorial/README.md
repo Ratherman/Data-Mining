@@ -53,15 +53,15 @@
 If 語法用於判斷條件，根據判斷的結果，執行不同的敘述。
 1. 格式 I：
 ```
-If 敘述式 Then
-...
+If 條件式 Then
+    指令敘述 1......
 Else
 ...
 End If
 ```
 2. 格式 II：
 ```
-If 敘述式 Then 語法 ...
+If 條件式 Then 指令敘述
 ```
 3. 舉例：
 ```
@@ -71,17 +71,34 @@ Else
     OK = False
 End if
 ```
+4. 格式 III：
+```
+If 條件式1 Then
+    指令敘述A
+ElseIf 條件式2 Then
+    指令敘述B
+ElseIf 條件式3 Then
+    指令敘述C
+Else
+    指令敘述D
+End If
+```
 
 ### Select Case 語法：
 Selct Case 語法用於對某一敘述式的值進行多種判斷處理。
 ```
-Select4 Case 敘述式
-Case 值1:
+Select4 Case 條件運算式
+Case 測試結果1:
+    指令敘述1
+Case 測試結果2:
+    指令敘述2
+Case 測試結果3:
+    指令敘述3
 ...
-Case 值2:
-...
+Case 測試結果N:
+    指令敘述N
 Case Else
-...
+    指令敘述N+1
 End Select
 ```
 
@@ -89,9 +106,10 @@ End Select
 For ... Next 用於指定次數的迴圈，格式有兩種：
 1. 一般的數字變數：
 ```
-For var = start To end[Step step]
-...
-Next var
+For 變數 = 初值 To 終值[Step 增值]
+    [程式敘述區段]
+    [判斷式 ... Exit For]
+Next 變數
 ```
 
 2. 指定作用對象：
@@ -107,15 +125,25 @@ Next obj
 1. 先判斷後執行：
 ```
 Do While|Until 條件
-...
+    [程式敘述區段]
+    [Exit Do]
 Loop
 ```
 
 2. 先執行後判斷：
 ```
 Do
-...
+    [程式敘述區段]
+    [Exit Do]
 Loop While|Until 條件
+```
+
+3. 還有
+```
+Do Until
+    [程式敘述區段]
+    [Exit Do]
+Loop
 ```
 Note：While 當條件為 True 時繼續執行迴圈，Until 當條件為 True 時退出。
 
@@ -143,4 +171,13 @@ End With
 Text1.SelStart=0
 Text1.SeiLength=Len(Text1.Text)
 Text1.SetFocus
-``
+```
+
+# 第 04 單元：VB 的程式設計
+Visual Basic 撰寫程式的步驟：
+1. 選擇【File】>【New Project】開啟新專案檔
+2. 從【ToolBasr】中選擇所需的控制項放置到 Form 中的適當位置，並調整其大小。
+3. 透過【Properties】視窗設定每一個控制項的相關屬性。
+4. 開啟程式碼編寫視窗，轉寫變數宣告、副程式及相關事件程序。
+5. 選擇【Run】>【Start】功能(或按 F5)，實際測試程式。
+6. 測試正程後，選擇【File】>【Make EXE File】功能，產生執行檔。
