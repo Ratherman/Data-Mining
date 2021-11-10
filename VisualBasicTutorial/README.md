@@ -8,7 +8,7 @@
 * [第 04 單元：VB 的程式設計](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-04-%E5%96%AE%E5%85%83vb-%E7%9A%84%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88)
 * [第 05 單元：VB 的物件應用](https://github.com/Ratherman/Data-Mining/tree/main/VisualBasicTutorial#%E7%AC%AC-05-%E5%96%AE%E5%85%83vb%E7%9A%84%E7%89%A9%E4%BB%B6%E6%87%89%E7%94%A8)
 
-## 教學程式範例
+## 教學程式範例: Tutorial
 1. 原周長面積(1)
 2. 圓周長面積(2)
 3. 四則運算
