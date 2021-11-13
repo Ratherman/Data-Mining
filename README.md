@@ -1,7 +1,7 @@
 # Data-Mining
 In this repository, we will implement data-mining techniques by using Python and Visual Basic.
 
-# Data Mining 需要愛與關懷 - Feature Section
+# 需要愛與關懷的 DM - Part I: Feature Section
 
 以下是在做 Feature Section 時我們會需要具備的觀念：
 1. Entropy
