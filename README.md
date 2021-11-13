@@ -9,6 +9,8 @@ In this repository, we will implement data-mining techniques by using Python and
 3. Mutual Information
 4. Symmetric Uncertainty
 5. Goodness
+6. Forward Selection
+7. Backward Selection
 
 ## (1) Entropy
 ### Entropy of Discrete Attribute X
@@ -24,3 +26,7 @@ In this repository, we will implement data-mining techniques by using Python and
 
 ## (5) Goodness
 ### Goodness of an attribute subset S for classification C
+
+## (6) Forward Selection
+
+## (7) Backward Selection
