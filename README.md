@@ -12,21 +12,7 @@ In this repository, we will implement data-mining techniques by using Python and
 6. Forward Selection
 7. Backward Selection
 
-## (1) Entropy
-### Entropy of Discrete Attribute X
-
-## (2) Joint Entropy
-### Joint Entropy of Discrete Attribute X and Y
-
-## (3) Mutual Information
-### Mutual Information between Dicrete Attributes X and Y
-
-## (4) Symmetric Uncertainty
-### Symmetric Uncertainty between Discrete Attributes X and Y
-
-## (5) Goodness
-### Goodness of an attribute subset S for classification C
-
-## (6) Forward Selection
-
-## (7) Backward Selection
+# 需要愛與關懷的 DM - Part II: Discretization
+1. Equal-width Discretization
+2. Equal-Frequency Discretization
+3. Entropy-Based Discretization
