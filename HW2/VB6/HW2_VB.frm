@@ -39,7 +39,7 @@ Begin VB.Form Partition
       Left            =   120
       TabIndex        =   3
       Top             =   1440
-      Width           =   10695
+      Width           =   16095
    End
    Begin VB.TextBox infile 
       BeginProperty Font 
@@ -139,8 +139,12 @@ Private Sub Command1_Click()
 ' 清空 List 1 的內容
 List1.Clear
 
-' Read Txt File
-List1.AddItem "Read Txt File"
+
+List1.AddItem ""
+List1.AddItem "======================================"
+List1.AddItem "Perform Equal-Frequency Discretization"
+List1.AddItem "======================================"
+List1.AddItem ""
 
 in_file = App.Path & "\" & infile.Text
 Open in_file For Input As #1
@@ -244,6 +248,19 @@ For j = 0 To 9
                 discrete_attr(i) = 9
             End If
         Next
+        
+        List1.AddItem "第" & "" & Str(j) & "" & "個 attribute 的十個區間由大至小排序"
+        List1.AddItem "  第一區間: [" & "" & Str(split_point_1) & "" & ", " & "" & "Max num]"
+        List1.AddItem "  第二區間: [" & "" & Str(split_point_2) & "" & ", " & "" & Str(split_point_1) & "" & ")"
+        List1.AddItem "  第三區間: [" & "" & Str(split_point_3) & "" & ", " & "" & Str(split_point_2) & "" & ")"
+        List1.AddItem "  第四區間: [" & "" & Str(split_point_4) & "" & ", " & "" & Str(split_point_3) & "" & ")"
+        List1.AddItem "  第五區間: [" & "" & Str(split_point_5) & "" & ", " & "" & Str(split_point_4) & "" & ")"
+        List1.AddItem "  第六區間: [" & "" & Str(split_point_6) & "" & ", " & "" & Str(split_point_5) & "" & ")"
+        List1.AddItem "  第七區間: [" & "" & Str(split_point_7) & "" & ", " & "" & Str(split_point_6) & "" & ")"
+        List1.AddItem "  第八區間: [" & "" & Str(split_point_8) & "" & ", " & "" & Str(split_point_7) & "" & ")"
+        List1.AddItem "  第九區間: [" & "" & Str(split_point_9) & "" & ", " & "" & Str(split_point_8) & "" & ")"
+        List1.AddItem "  第十區間: [" & "" & "Min num" & "" & ", " & "" & Str(split_point_9) & "" & ")"
+        List1.AddItem ""
         
         For i = 0 To 105
             attributes_EFD(j, i) = discrete_attr(i)
@@ -656,8 +673,11 @@ Private Sub Partition_click()
 ' 清空 List 1 的內容
 List1.Clear
 
-' Read Txt File
-List1.AddItem "Read Txt File"
+List1.AddItem ""
+List1.AddItem "=================================="
+List1.AddItem "Perform Equal-Width Discretization"
+List1.AddItem "=================================="
+List1.AddItem ""
 
 in_file = App.Path & "\" & infile.Text
 Open in_file For Input As #1
@@ -711,6 +731,19 @@ For i = 0 To 9
         split_point_7 = max_num_in_col - 7 * width
         split_point_8 = max_num_in_col - 8 * width
         split_point_9 = max_num_in_col - 9 * width
+        
+        List1.AddItem "第" & "" & Str(i) & "" & "個 attribute 的十個區間由大至小排序"
+        List1.AddItem "  第一區間: [" & "" & Str(split_point_1) & "" & ", " & "" & "Max num]"
+        List1.AddItem "  第二區間: [" & "" & Str(split_point_2) & "" & ", " & "" & Str(split_point_1) & "" & ")"
+        List1.AddItem "  第三區間: [" & "" & Str(split_point_3) & "" & ", " & "" & Str(split_point_2) & "" & ")"
+        List1.AddItem "  第四區間: [" & "" & Str(split_point_4) & "" & ", " & "" & Str(split_point_3) & "" & ")"
+        List1.AddItem "  第五區間: [" & "" & Str(split_point_5) & "" & ", " & "" & Str(split_point_4) & "" & ")"
+        List1.AddItem "  第六區間: [" & "" & Str(split_point_6) & "" & ", " & "" & Str(split_point_5) & "" & ")"
+        List1.AddItem "  第七區間: [" & "" & Str(split_point_7) & "" & ", " & "" & Str(split_point_6) & "" & ")"
+        List1.AddItem "  第八區間: [" & "" & Str(split_point_8) & "" & ", " & "" & Str(split_point_7) & "" & ")"
+        List1.AddItem "  第九區間: [" & "" & Str(split_point_9) & "" & ", " & "" & Str(split_point_8) & "" & ")"
+        List1.AddItem "  第十區間: [" & "" & "Min num" & "" & ", " & "" & Str(split_point_9) & "" & ")"
+        List1.AddItem ""
         
         ' Transfer attributes into proper interval
         Dim discrete_attr(105) As Double
