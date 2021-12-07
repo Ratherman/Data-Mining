@@ -16,3 +16,7 @@ In this repository, we will implement data-mining techniques by using Python and
 1. Equal-width Discretization
 2. Equal-Frequency Discretization
 3. Entropy-Based Discretization
+
+# 需要愛與關懷的 DM - Part III: naïve Bayesian classifier 
+1. with the Laplace estimate
+2. forward selection: perform the selective naïve Bayes
