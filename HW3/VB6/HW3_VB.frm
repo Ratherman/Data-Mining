@@ -101,6 +101,8 @@ Attribute VB_Exposed = False
 Option Explicit
 Dim i As Single
 Dim j As Single
+Dim k As Single
+
 
 ' 讀資料相關
 Dim in_file As String
@@ -108,7 +110,7 @@ Dim feat_y As String
 Dim feat_x(9) As Double
 
 ' 主要儲存資訊之二維矩陣
-Dim attributes(9, 214) As Variant
+Dim Attributes(9, 214) As Variant
 Dim attributes_EWD(9, 214) As Variant
 
 ' 用在 Equal Width Discretization
@@ -147,16 +149,16 @@ Do While Not EOF(1)
     
     For j = 0 To 8
     
-        If j = 1 Then
-            attributes(j, i) = feat_x(j) * 1000 ' scale 太小，不好 discretization
+        If j = 0 Or j = 1 Or j = 4 Then
+            Attributes(j, i) = feat_x(j + 1) * 100 ' scale 太小，不好 discretization
         Else
-            attributes(j, i) = feat_x(j)
+            Attributes(j, i) = feat_x(j + 1) * 1000
         End If
         
-'        attributes(j, i) = feat_x(j + 1)
+        'Attributes(j, i) = feat_x(j + 1) * 1000 ' scale 太小，不好 discretization
     Next j
     
-    attributes(9, i) = feat_y
+    Attributes(9, i) = feat_y
     ' 全部列印出來看看
     ' List1.AddItem Str(attributes(0, i)) & " " & Str(attributes(1, i)) & " " & Str(attributes(2, i)) & " " & Str(attributes(3, i)) & " " & Str(attributes(4, i)) & " " & Str(attributes(5, i)) & " " & Str(attributes(6, i)) & " " & Str(attributes(7, i)) & " " & Str(attributes(8, i)) & " " & attributes(9, i)
     i = i + 1
@@ -171,14 +173,16 @@ List1.AddItem ""
 
 For i = 0 To 9
     
-    For j = 0 To 213
-        specific_col(j) = attributes(i, j)
+    For k = 0 To 213
+        specific_col(k) = Attributes(i, k)
     Next
     
     If i <> 9 Then
         number_of_intervals = 10
         max_num_in_col = find_max(specific_col)
         min_num_in_col = find_min(specific_col)
+        List1.AddItem Str(max_num_in_col)
+        List1.AddItem Str(min_num_in_col)
         
         Dim width As Double
         width = (max_num_in_col - min_num_in_col) / number_of_intervals
@@ -194,45 +198,64 @@ For i = 0 To 9
         split_point_8 = max_num_in_col - 8 * width
         split_point_9 = max_num_in_col - 9 * width
         
+        Dim sp_str_1 As Double
+        Dim sp_str_2 As Double
+        Dim sp_str_3 As Double
+        Dim sp_str_4 As Double
+        Dim sp_str_5 As Double
+        Dim sp_str_6 As Double
+        Dim sp_str_7 As Double
+        Dim sp_str_8 As Double
+        Dim sp_str_9 As Double
         
-        If i = 1 Then
-            split_point_1 = split_point_1 / 1000
-            split_point_2 = split_point_2 / 1000
-            split_point_3 = split_point_3 / 1000
-            split_point_4 = split_point_4 / 1000
-            split_point_5 = split_point_5 / 1000
-            split_point_6 = split_point_6 / 1000
-            split_point_7 = split_point_7 / 1000
-            split_point_8 = split_point_8 / 1000
-            split_point_9 = split_point_9 / 1000
+        If i = 0 Or i = 1 Or i = 4 Then
+           
+            sp_str_1 = split_point_1 / 100
+            sp_str_2 = split_point_2 / 100
+            sp_str_3 = split_point_3 / 100
+            sp_str_4 = split_point_4 / 100
+            sp_str_5 = split_point_5 / 100
+            sp_str_6 = split_point_6 / 100
+            sp_str_7 = split_point_7 / 100
+            sp_str_8 = split_point_8 / 100
+            sp_str_9 = split_point_9 / 100
         
-            List1.AddItem "第" & "" & Str(i) & "" & "個 attribute 的十個區間由大至小排序"
-            List1.AddItem "  第一區間: [" & "" & Str(split_point_1) & "" & ", " & "" & "Max num]"
-            List1.AddItem "  第二區間: [" & "" & Str(split_point_2) & "" & ", " & "" & Str(split_point_1) & "" & ")"
-            List1.AddItem "  第三區間: [" & "" & Str(split_point_3) & "" & ", " & "" & Str(split_point_2) & "" & ")"
-            List1.AddItem "  第四區間: [" & "" & Str(split_point_4) & "" & ", " & "" & Str(split_point_3) & "" & ")"
-            List1.AddItem "  第五區間: [" & "" & Str(split_point_5) & "" & ", " & "" & Str(split_point_4) & "" & ")"
-            List1.AddItem "  第六區間: [" & "" & Str(split_point_6) & "" & ", " & "" & Str(split_point_5) & "" & ")"
-            List1.AddItem "  第七區間: [" & "" & Str(split_point_7) & "" & ", " & "" & Str(split_point_6) & "" & ")"
-            List1.AddItem "  第八區間: [" & "" & Str(split_point_8) & "" & ", " & "" & Str(split_point_7) & "" & ")"
-            List1.AddItem "  第九區間: [" & "" & Str(split_point_9) & "" & ", " & "" & Str(split_point_8) & "" & ")"
-            List1.AddItem "  第十區間: [" & "" & "Min num" & "" & ", " & "" & Str(split_point_9) & "" & ")"
-            List1.AddItem ""
+            'List1.AddItem "第" & "" & Str(i) & "" & "個 attribute 的十個區間由大至小排序"
+            'List1.AddItem "  第一區間: [" & "" & Str(sp_str_1) & "" & ", " & "" & "Max num]"
+            'List1.AddItem "  第二區間: [" & "" & Str(sp_str_2) & "" & ", " & "" & Str(sp_str_1) & "" & ")"
+            'List1.AddItem "  第三區間: [" & "" & Str(sp_str_3) & "" & ", " & "" & Str(sp_str_2) & "" & ")"
+            'List1.AddItem "  第四區間: [" & "" & Str(sp_str_4) & "" & ", " & "" & Str(sp_str_3) & "" & ")"
+            'List1.AddItem "  第五區間: [" & "" & Str(sp_str_5) & "" & ", " & "" & Str(sp_str_4) & "" & ")"
+            'List1.AddItem "  第六區間: [" & "" & Str(sp_str_6) & "" & ", " & "" & Str(sp_str_5) & "" & ")"
+            'List1.AddItem "  第七區間: [" & "" & Str(sp_str_7) & "" & ", " & "" & Str(sp_str_6) & "" & ")"
+            'List1.AddItem "  第八區間: [" & "" & Str(sp_str_8) & "" & ", " & "" & Str(sp_str_7) & "" & ")"
+            'List1.AddItem "  第九區間: [" & "" & Str(sp_str_9) & "" & ", " & "" & Str(sp_str_8) & "" & ")"
+            'List1.AddItem "  第十區間: [" & "" & "Min num" & "" & ", " & "" & Str(sp_str_9) & "" & ")"
+            'List1.AddItem ""
 
         
         Else
-        
+            sp_str_1 = split_point_1 / 1000
+            sp_str_2 = split_point_2 / 1000
+            sp_str_3 = split_point_3 / 1000
+            sp_str_4 = split_point_4 / 1000
+            sp_str_5 = split_point_5 / 1000
+            sp_str_6 = split_point_6 / 1000
+            sp_str_7 = split_point_7 / 1000
+            sp_str_8 = split_point_8 / 1000
+            sp_str_9 = split_point_9 / 1000
+            
             'List1.AddItem "第" & "" & Str(i) & "" & "個 attribute 的十個區間由大至小排序"
-            'List1.AddItem "  第一區間: [" & "" & Str(split_point_1) & "" & ", " & "" & "Max num]"
-            'List1.AddItem "  第二區間: [" & "" & Str(split_point_2) & "" & ", " & "" & Str(split_point_1) & "" & ")"
-            'List1.AddItem "  第三區間: [" & "" & Str(split_point_3) & "" & ", " & "" & Str(split_point_2) & "" & ")"
-            'List1.AddItem "  第四區間: [" & "" & Str(split_point_4) & "" & ", " & "" & Str(split_point_3) & "" & ")"
-            'List1.AddItem "  第五區間: [" & "" & Str(split_point_5) & "" & ", " & "" & Str(split_point_4) & "" & ")"
-            'List1.AddItem "  第六區間: [" & "" & Str(split_point_6) & "" & ", " & "" & Str(split_point_5) & "" & ")"
-            'List1.AddItem "  第七區間: [" & "" & Str(split_point_7) & "" & ", " & "" & Str(split_point_6) & "" & ")"
-            'List1.AddItem "  第八區間: [" & "" & Str(split_point_8) & "" & ", " & "" & Str(split_point_7) & "" & ")"
-            'List1.AddItem "  第九區間: [" & "" & Str(split_point_9) & "" & ", " & "" & Str(split_point_8) & "" & ")"
-            'List1.AddItem "  第十區間: [" & "" & "Min num" & "" & ", " & "" & Str(split_point_9) & "" & ")"
+            'List1.AddItem "  第一區間: [" & "" & Str(sp_str_1) & "" & ", " & "" & "Max num]"
+            'List1.AddItem "  第二區間: [" & "" & Str(sp_str_2) & "" & ", " & "" & Str(sp_str_1) & "" & ")"
+            'List1.AddItem "  第三區間: [" & "" & Str(sp_str_3) & "" & ", " & "" & Str(sp_str_2) & "" & ")"
+            'List1.AddItem "  第四區間: [" & "" & Str(sp_str_4) & "" & ", " & "" & Str(sp_str_3) & "" & ")"
+            'List1.AddItem "  第五區間: [" & "" & Str(sp_str_5) & "" & ", " & "" & Str(sp_str_4) & "" & ")"
+            'List1.AddItem "  第六區間: [" & "" & Str(sp_str_6) & "" & ", " & "" & Str(sp_str_5) & "" & ")"
+            'List1.AddItem "  第七區間: [" & "" & Str(sp_str_7) & "" & ", " & "" & Str(sp_str_6) & "" & ")"
+            'List1.AddItem "  第八區間: [" & "" & Str(sp_str_8) & "" & ", " & "" & Str(sp_str_7) & "" & ")"
+            'List1.AddItem "  第九區間: [" & "" & Str(sp_str_9) & "" & ", " & "" & Str(sp_str_8) & "" & ")"
+            'List1.AddItem "  第十區間: [" & "" & "Min num" & "" & ", " & "" & Str(sp_str_9) & "" & ")"
             'List1.AddItem ""
         
         End If
@@ -274,7 +297,7 @@ For i = 0 To 9
         Next
     Else
         For j = 0 To 213
-            attributes_EWD(i, j) = attributes(i, j)
+            attributes_EWD(i, j) = Attributes(i, j)
         Next
     End If
     
@@ -382,8 +405,234 @@ Dim current_best_accuracy As Double
 'List1.AddItem ""
 'List1.AddItem "Forward Selection Finish! Best Subset: [" & "" & statement & " " & "], Accuracy:" & " " & best_accuracy
 
-End Sub
+Dim col_boolean(9) As Boolean
 
+' 先初始化 col_name，讓大家都是 False
+For i = 0 To 8
+    col_boolean(i) = False
+Next
+
+' 設定想要實驗的對象，假設是 3 和 0
+col_boolean(0) = True
+col_boolean(3) = True
+
+acc = selective_naive_bayes(attributes_EWD, col_boolean)
+
+' Test unique
+'Dim test_col(213) As Double
+'For i = 0 To 212
+'    test_col(i) = attributes_EWD(9, i)
+'Next
+'Dim n As Integer
+'n = unique_type_count(test_col)
+
+End Sub
+' Core Function: Perform SNB Algorithm with Laplace Estimate
+Private Function selective_naive_bayes(Attributes, col_boolean):
+    
+    ' 準備好 Y_col
+    Dim Y_col(214) As Double
+    For i = 0 To 213
+        Y_col(i) = Attributes(9, i)
+    Next
+    
+    ' 準備好 Datum，先把他初始化成 -999
+    Dim Datum(214, 9) As Double
+    For i = 0 To 213
+        For j = 0 To 8
+            Datum(i, j) = -999
+        Next
+    Next
+    
+    ' 然後把需要使用的資料(每一次都是不一樣的column)倒進 Datum 裡面
+    For i = 0 To 8
+        If col_boolean(i) = True Then
+            For j = 0 To 213
+                Datum(j, i) = Attributes(i, j)
+            Next
+        End If
+    Next
+    
+    ' 這個 loop 是在區分 testing data 和 training data 用的
+    Dim ACC_Count As Integer
+    ACC_Count = 0
+    
+
+    
+    For i = 0 To 214
+        ' 區分 training data 和 testing data
+        
+        ' 取出 testing data
+        Dim X_test(1, 9) As Double
+        Dim Y_test As Double
+        
+        For j = 0 To 8
+            X_test(0, j) = Datum(i, j)
+            Y_test = Y_col(i)
+        Next
+        
+        ' 取出 training data
+        Dim X_train(213, 9) As Double
+        Dim Y_train(213) As Double
+        
+        For j = 0 To 8
+            
+            Dim train_counter As Integer
+            train_counter = 0
+            
+            If col_boolean(j) = True Then
+                For k = 0 To 214
+                    If k = i Then ' 表示這筆資料是 testing data 的
+                        train_counter = train_counter
+                    Else
+                        X_train(train_counter, j) = Datum(k, j)
+                        Y_train(train_counter) = Y_col(k)
+                        train_counter = train_counter + 1
+                    End If
+                Next
+            End If
+        Next
+        
+        ' 在 i-th run 裡面
+        ' 目標是拿著 X_test 然後到 X_train 裡面算 Naive Bayes with Lapace Estimate 的 Score
+        ' 然後再用 Y_test 比對
+        ' 有 6 種 class type: 1,2,3,5,6,7
+        
+        ' (1) 計算 p(c)
+        Dim count_c1 As Double
+        Dim count_c2 As Double
+        Dim count_c3 As Double
+        Dim count_c5 As Double
+        Dim count_c6 As Double
+        Dim count_c7 As Double
+        
+        count_c1 = 0
+        count_c2 = 0
+        count_c3 = 0
+        count_c5 = 0
+        count_c6 = 0
+        count_c7 = 0
+        
+        For j = 0 To 213
+            
+            If (Y_train(j) = 1) Then
+                count_c1 = count_c1 + 1
+            
+            ElseIf (Y_train(j) = 2) Then
+                count_c2 = count_c2 + 1
+            
+            ElseIf (Y_train(j) = 3) Then
+                count_c3 = count_c3 + 1
+                
+            ElseIf (Y_train(j) = 5) Then
+                count_c5 = count_c5 + 1
+            
+            ElseIf (Y_train(j) = 6) Then
+                count_c6 = count_c6 + 1
+            
+            ElseIf (Y_train(j) = 7) Then
+                count_c7 = count_c7 + 1
+                
+            End If
+            
+        Next
+        
+        Dim prob_c1 As Double
+        Dim prob_c2 As Double
+        Dim prob_c3 As Double
+        Dim prob_c5 As Double
+        Dim prob_c6 As Double
+        Dim prob_c7 As Double
+        
+        prob_c1 = count_c1 / 213
+        prob_c2 = count_c2 / 213
+        prob_c3 = count_c3 / 213
+        prob_c5 = count_c5 / 213
+        prob_c6 = count_c6 / 213
+        prob_c7 = count_c7 / 213
+        
+    Next
+
+    
+    selective_naive_bayes = 1
+End Function
+
+' Helper Function: count number of unique types in a column
+' Laplace Estimate 需要這個數值(用在分母)
+' 我可以用這種方式去找出 unique 的數量是因為我已經有把所有的可能值換成 0 ~ 9 其中一個數字了
+Private Function unique_type_count(col_array):
+    Dim toggle_0 As Integer
+    Dim toggle_1 As Integer
+    Dim toggle_2 As Integer
+    Dim toggle_3 As Integer
+    Dim toggle_4 As Integer
+    Dim toggle_5 As Integer
+    Dim toggle_6 As Integer
+    Dim toggle_7 As Integer
+    Dim toggle_8 As Integer
+    Dim toggle_9 As Integer
+    Dim num_unique As Integer
+    
+    toggle_0 = 0
+    toggle_1 = 0
+    toggle_2 = 0
+    toggle_3 = 0
+    toggle_4 = 0
+    toggle_5 = 0
+    toggle_6 = 0
+    toggle_7 = 0
+    toggle_8 = 0
+    toggle_9 = 0
+    
+    ' 這裡只有用 213 筆資料是因為我有做 dataset 的切割
+    For i = 0 To 212
+        If col_array(i) = 0 Then
+            toggle_0 = 1
+        End If
+        
+        If col_array(i) = 1 Then
+            toggle_1 = 1
+        End If
+        
+        If col_array(i) = 2 Then
+            toggle_2 = 1
+        End If
+        
+        If col_array(i) = 3 Then
+            toggle_3 = 1
+        End If
+        
+        If col_array(i) = 4 Then
+            toggle_4 = 1
+        End If
+        
+        If col_array(i) = 5 Then
+            toggle_5 = 1
+        End If
+        
+        If col_array(i) = 6 Then
+            toggle_6 = 1
+        End If
+        
+        If col_array(i) = 7 Then
+            toggle_7 = 1
+        End If
+        
+        If col_array(i) = 8 Then
+            toggle_8 = 1
+        End If
+        
+        If col_array(i) = 9 Then
+            toggle_9 = 1
+        End If
+    Next
+    
+    num_unique = toggle_0 + toggle_1 + toggle_2 + toggle_3 + toggle_4 + toggle_5 + toggle_6 + toggle_7 + toggle_8 + toggle_9
+    List1.AddItem Str(num_unique)
+    unique_type_count = num_unique
+End Function
+
+' Helper Function: sort col
 Private Function sort_col(arr)
     
     Dim arr_sort(213) As Double
