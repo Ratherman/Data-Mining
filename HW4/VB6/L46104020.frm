@@ -4,10 +4,10 @@ Begin VB.Form Partition
    ClientHeight    =   10155
    ClientLeft      =   165
    ClientTop       =   450
-   ClientWidth     =   13485
+   ClientWidth     =   12270
    LinkTopic       =   "Form2"
    ScaleHeight     =   10155
-   ScaleWidth      =   13485
+   ScaleWidth      =   12270
    Begin VB.CommandButton Command3 
       Caption         =   "Model 4: KNN + Weighted Vote"
       BeginProperty Font 
@@ -73,7 +73,7 @@ Begin VB.Form Partition
       Left            =   120
       TabIndex        =   3
       Top             =   1440
-      Width           =   16095
+      Width           =   12015
    End
    Begin VB.TextBox infile 
       BeginProperty Font 
@@ -707,10 +707,12 @@ List1.AddItem "[Model 2: Equal-frequency Discretization + Naive Bayes Classifier
 ' Step 8: Statistical hypothesis testing
 ' ======================================
 List1.AddItem ""
+List1.AddItem "----------------------------------------------------------------------------------------------------------------"
 List1.AddItem "Perform Statistical hypothesis testing for Model 1 and Model 2"
+List1.AddItem "----------------------------------------------------------------------------------------------------------------"
 List1.AddItem "Model 1: Equal-width Discretization + Naive Bayes Classifier"
 List1.AddItem "Model 2: Equal-Frequency Discretization + Naive Bayes Classifier"
-List1.AddItem "H_0: P1_BAR = P2_BAR"
+List1.AddItem "H_0: P1_BAR = P2_BAR (Null Hypothesis)"
 
 P_AVG = (P1_BAR + P2_BAR) / 2
 Z = (P1_BAR - P2_BAR) / Sqr(2 / 768 * P_AVG * (1 - P_AVG))
@@ -895,12 +897,18 @@ train_dataset_type_3 = map_into_train_dataset(153, 153, 153, 156, AF_1, AF_2, AF
 train_dataset_type_4 = map_into_train_dataset(153, 153, 153, 156, AF_1, AF_2, AF_3, AF_5)
 train_dataset_type_5 = map_into_train_dataset(153, 153, 153, 153, AF_1, AF_2, AF_3, AF_4)
 
-fold_1_correct = KNN_classifier_type_614(AF_1, 153, train_dataset_type_1, 615, "test_mode")
-'fold_2_correct = KNN_classifier_type_614(AF_2, 153, train_dataset_type_2, 615, "test_mode")
-'fold_3_correct = KNN_classifier_type_614(AF_3, 153, train_dataset_type_3, 615, "test_mode")
-'fold_4_correct = KNN_classifier_type_614(AF_4, 153, train_dataset_type_4, 615, "test_mode")
-'fold_5_correct = KNN_classifier(AF_5, 156, train_dataset_type_5, 612, "test_mode")
+fold_1_correct = KNN_classifier_type_614(AF_1, 153, train_dataset_type_1, 615, "Majority_Voting")
+fold_2_correct = KNN_classifier_type_614(AF_2, 153, train_dataset_type_2, 615, "Majority_Voting")
+fold_3_correct = KNN_classifier_type_614(AF_3, 153, train_dataset_type_3, 615, "Majority_Voting")
+fold_4_correct = KNN_classifier_type_614(AF_4, 153, train_dataset_type_4, 615, "Majority_Voting")
+fold_5_correct = KNN_classifier_type_611(AF_5, 156, train_dataset_type_5, 612, "Majority_Voting")
 
+'List1.AddItem Str(fold_1_correct) & " " & Str(fold_2_correct) & " " & Str(fold_3_correct) & " " & Str(fold_4_correct) & " " & Str(fold_5_correct)
+' ==================================
+' Step 6: Calculate Average Accuracy
+' ==================================
+P3_BAR = (fold_1_correct + fold_2_correct + fold_3_correct + fold_4_correct + fold_5_correct) / 768
+List1.AddItem "[Model 3: KNN Classifier + Majority Voting] Average is" & " " & Str(P3_BAR)
 ' ===========================================================================================================
 
 List1.AddItem ""
@@ -909,7 +917,86 @@ List1.AddItem "Model 4: K-Nearest Neighbor + Weighted-Distance Voting"
 List1.AddItem "==============================================================="
 List1.AddItem ""
 
+' ==================================
+' No Need to perform Step 1 ~ Step 5
+' ==================================
 
+fold_1_correct = KNN_classifier_type_614(AF_1, 153, train_dataset_type_1, 615, "Weighted_Voting")
+fold_2_correct = KNN_classifier_type_614(AF_2, 153, train_dataset_type_2, 615, "Weighted_Voting")
+fold_3_correct = KNN_classifier_type_614(AF_3, 153, train_dataset_type_3, 615, "Weighted_Voting")
+fold_4_correct = KNN_classifier_type_614(AF_4, 153, train_dataset_type_4, 615, "Weighted_Voting")
+fold_5_correct = KNN_classifier_type_611(AF_5, 156, train_dataset_type_5, 612, "Weighted_Voting")
+
+'List1.AddItem Str(fold_1_correct) & " " & Str(fold_2_correct) & " " & Str(fold_3_correct) & " " & Str(fold_4_correct) & " " & Str(fold_5_correct)
+' ==================================
+' Step 6: Calculate Average Accuracy
+' ==================================
+P4_BAR = (fold_1_correct + fold_2_correct + fold_3_correct + fold_4_correct + fold_5_correct) / 768
+List1.AddItem "[Model 4: KNN Classifier + Weighted Voting] Average is" & " " & Str(P4_BAR)
+
+' ======================================
+' Step 7: Statistical hypothesis testing
+' ======================================
+List1.AddItem ""
+List1.AddItem "----------------------------------------------------------------------------------------------------------------"
+List1.AddItem "Perform Statistical hypothesis testing for Model 3 and Model 4"
+List1.AddItem "----------------------------------------------------------------------------------------------------------------"
+List1.AddItem "Model 3: K-Nearest Neighbor + Majority Voting"
+List1.AddItem "Model 4: K-Nearest Neighbor + Weighted Voting"
+List1.AddItem "H_0: P3_BAR = P4_BAR (Null Hypothesis)"
+
+P_AVG = (P3_BAR + P4_BAR) / 2
+Z = (P3_BAR - P4_BAR) / Sqr(2 / 768 * P_AVG * (1 - P_AVG))
+List1.AddItem "Z =" & " " & Str(Z)
+List1.AddItem "Two-tailed test with alpha = 0.05"
+If Z < -1.96 Or Z > 1.96 Then
+    List1.AddItem "H_0 is rejected"
+Else
+    List1.AddItem "H_0 is not rejected"
+End If
+
+' ====================================================
+' Step 8: Statistical Hypothesis Testing For NBC & KNN
+' ====================================================
+Dim NBC_HIGH As Double
+Dim KNN_HIGH As Double
+Dim NBC_HIGH_STR As String
+Dim KNN_HIGH_STR As String
+
+List1.AddItem ""
+List1.AddItem "----------------------------------------------------------------------------------------------------------------"
+List1.AddItem "Perform Statistical hypothesis testing for Naive Bayes Classifier (Model 1 & 2) and KNN Classifier (Model 3 & 4)"
+List1.AddItem "----------------------------------------------------------------------------------------------------------------"
+If P1_BAR > P2_BAR Then
+    NBC_HIGH = P1_BAR
+    NBC_HIGH_STR = "P1_BAR"
+    List1.AddItem "Model 1 performed better than Model 2, so Model 1 is chosen for hypothesis testing."
+Else
+    NBC_HIGH = P2_BAR
+    NBC_HIGH_STR = "P2_BAR"
+    List1.AddItem "Model 2 performed better than Model 1, so Model 2 is chosen for hypothesis testing."
+End If
+
+If P3_BAR > P4_BAR Then
+    KNN_HIGH = P3_BAR
+    KNN_HIGH_STR = "P3_BAR"
+    List1.AddItem "Model 3 performed better than Model 4, so Model 3 is chosen for hypothesis testing."
+Else
+    NBC_HIGH = P4_BAR
+    KNN_HIGH_STR = "P4_BAR"
+    List1.AddItem "Model 4 performed better than Model 3, so Model 4 is chosen for hypothesis testing."
+End If
+
+List1.AddItem "H_0:" & "" & NBC_HIGH_STR & "" & "=" & "" & KNN_HIGH_STR & "" & " (Null Hypothesis)"
+P_AVG = (NBC_HIGH + KNN_HIGH) / 2
+Z = (NBC_HIGH - KNN_HIGH) / Sqr(2 / 768 * P_AVG * (1 - P_AVG))
+List1.AddItem "Z =" & " " & Str(Z)
+List1.AddItem "Two-tailed test with alpha = 0.05"
+If Z < -1.96 Or Z > 1.96 Then
+    List1.AddItem "H_0 is rejected"
+Else
+    List1.AddItem "H_0 is not rejected"
+End If
 
 End Sub
 Private Function KNN_classifier_type_614(TSTA, test_num, TRNA, train_num, mode)
@@ -931,18 +1018,28 @@ Private Function KNN_classifier_type_614(TSTA, test_num, TRNA, train_num, mode)
     Dim min_3_idx As Integer
     Dim min_4_idx As Integer
     Dim min_5_idx As Integer
+    Dim vote_1 As Integer
+    Dim vote_2 As Integer
+    Dim vote_3 As Integer
+    Dim vote_4 As Integer
+    Dim vote_5 As Integer
+    Dim candidate_0 As Integer
+    Dim candidate_1 As Integer
+    Dim candidate_0_float As Double
+    Dim candidate_1_float As Double
+    Dim pred_ans As Integer
     
     ACC_Count = 0
     
-    For i = 0 To (test_num - 1)
-        test_instance(0) = TSTA(0, i)
-        test_instance(1) = TSTA(1, i)
-        test_instance(2) = TSTA(2, i)
-        test_instance(3) = TSTA(3, i)
-        test_instance(4) = TSTA(4, i)
-        test_instance(5) = TSTA(5, i)
-        test_instance(6) = TSTA(6, i)
-        test_instance(7) = TSTA(7, i)
+    For ii = 0 To (test_num - 1)
+        test_instance(0) = TSTA(0, ii)
+        test_instance(1) = TSTA(1, ii)
+        test_instance(2) = TSTA(2, ii)
+        test_instance(3) = TSTA(3, ii)
+        test_instance(4) = TSTA(4, ii)
+        test_instance(5) = TSTA(5, ii)
+        test_instance(6) = TSTA(6, ii)
+        test_instance(7) = TSTA(7, ii)
         
         For j = 0 To (train_num - 1)
             diff_0 = (test_instance(0) - TRNA(0, j)) * (test_instance(0) - TRNA(0, j))
@@ -975,9 +1072,325 @@ Private Function KNN_classifier_type_614(TSTA, test_num, TRNA, train_num, mode)
         skip_list(4) = min_5_idx
         'Checker
         'List1.AddItem Str(min_1_idx) & " " & Str(min_2_idx) & " " & Str(min_3_idx) & " " & Str(min_4_idx) & " " & Str(min_5_idx)
-    Next
     
-    KNN_classifier_type_614 = 0
+        If mode = "Majority_Voting" Then
+            
+            vote_1 = TRNA(8, min_1_idx)
+            vote_2 = TRNA(8, min_2_idx)
+            vote_3 = TRNA(8, min_3_idx)
+            vote_4 = TRNA(8, min_4_idx)
+            vote_5 = TRNA(8, min_5_idx)
+            
+            candidate_0 = 0
+            candidate_1 = 0
+            
+            If vote_1 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If vote_2 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If vote_3 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If vote_4 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If vote_5 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If candidate_0 > candidate_1 Then
+                pred_ans = 0
+            Else
+                pred_ans = 1
+            End If
+            
+            ' Checker
+            'List1.AddItem Str(pred_ans) & " " & Str(TSTA(8, i))
+            'List1.AddItem Str(TSTA(8, i))
+            'List1.AddItem Str(i)
+            If pred_ans = TSTA(8, ii) Then
+                ACC_Count = ACC_Count + 1
+            Else
+                ACC_Count = ACC_Count
+            End If
+
+        ElseIf mode = "Weighted_Voting" Then
+            
+            vote_1 = TRNA(8, min_1_idx)
+            vote_2 = TRNA(8, min_2_idx)
+            vote_3 = TRNA(8, min_3_idx)
+            vote_4 = TRNA(8, min_4_idx)
+            vote_5 = TRNA(8, min_5_idx)
+            
+            diff_1 = diff_list(min_1_idx)
+            diff_2 = diff_list(min_2_idx)
+            diff_3 = diff_list(min_3_idx)
+            diff_4 = diff_list(min_4_idx)
+            diff_5 = diff_list(min_5_idx)
+            
+            candidate_0_float = 0
+            candidate_1_float = 0
+            
+            If vote_1 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_1 * diff_1)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_1 * diff_1)
+            End If
+            
+            If vote_2 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_2 * diff_2)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_2 * diff_2)
+            End If
+            
+            If vote_3 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_3 * diff_3)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_3 * diff_3)
+            End If
+            
+            If vote_4 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_4 * diff_4)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_4 * diff_4)
+            End If
+            
+            If vote_5 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_5 * diff_5)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_5 * diff_5)
+            End If
+            
+            'List1.AddItem Str(candidate_0_float) & " " & Str(candidate_1_float)
+            
+            If candidate_0_float > candidate_1_float Then
+                pred_ans = 0
+            Else
+                pred_ans = 1
+            End If
+            
+            If pred_ans = TSTA(8, ii) Then
+                ACC_Count = ACC_Count + 1
+            Else
+                ACC_Count = ACC_Count
+            End If
+            
+            
+        End If
+        
+    Next
+    KNN_classifier_type_614 = ACC_Count
+End Function
+Private Function KNN_classifier_type_611(TSTA, test_num, TRNA, train_num, mode)
+    Dim ACC_Count As Integer
+    Dim test_instance(7) As Double
+    Dim diff_list(611) As Double
+    Dim diff_0 As Double
+    Dim diff_1 As Double
+    Dim diff_2 As Double
+    Dim diff_3 As Double
+    Dim diff_4 As Double
+    Dim diff_5 As Double
+    Dim diff_6 As Double
+    Dim diff_7 As Double
+    Dim total_diff As Double
+    Dim skip_list(4) As Integer
+    Dim min_1_idx As Integer
+    Dim min_2_idx As Integer
+    Dim min_3_idx As Integer
+    Dim min_4_idx As Integer
+    Dim min_5_idx As Integer
+    Dim vote_1 As Integer
+    Dim vote_2 As Integer
+    Dim vote_3 As Integer
+    Dim vote_4 As Integer
+    Dim vote_5 As Integer
+    Dim candidate_0 As Integer
+    Dim candidate_1 As Integer
+    Dim candidate_0_float As Double
+    Dim candidate_1_float As Double
+    Dim pred_ans As Integer
+    
+    ACC_Count = 0
+    
+    For ii = 0 To (test_num - 1)
+        test_instance(0) = TSTA(0, ii)
+        test_instance(1) = TSTA(1, ii)
+        test_instance(2) = TSTA(2, ii)
+        test_instance(3) = TSTA(3, ii)
+        test_instance(4) = TSTA(4, ii)
+        test_instance(5) = TSTA(5, ii)
+        test_instance(6) = TSTA(6, ii)
+        test_instance(7) = TSTA(7, ii)
+        
+        For j = 0 To (train_num - 1)
+            diff_0 = (test_instance(0) - TRNA(0, j)) * (test_instance(0) - TRNA(0, j))
+            diff_1 = (test_instance(1) - TRNA(1, j)) * (test_instance(1) - TRNA(1, j))
+            diff_2 = (test_instance(2) - TRNA(2, j)) * (test_instance(2) - TRNA(2, j))
+            diff_3 = (test_instance(3) - TRNA(3, j)) * (test_instance(3) - TRNA(3, j))
+            diff_4 = (test_instance(4) - TRNA(4, j)) * (test_instance(4) - TRNA(4, j))
+            diff_5 = (test_instance(5) - TRNA(5, j)) * (test_instance(5) - TRNA(5, j))
+            diff_6 = (test_instance(6) - TRNA(6, j)) * (test_instance(6) - TRNA(6, j))
+            diff_7 = (test_instance(7) - TRNA(7, j)) * (test_instance(7) - TRNA(7, j))
+            total_diff = diff_0 + diff_1 + diff_2 + diff_3 + diff_4 + diff_5 + diff_6 + diff_7
+            diff_list(j) = total_diff
+        Next
+        
+        skip_list(0) = -1
+        skip_list(1) = -1
+        skip_list(2) = -1
+        skip_list(3) = -1
+        skip_list(4) = -1
+        
+        min_1_idx = find_min_pos_type_611(diff_list, skip_list)
+        skip_list(0) = min_1_idx
+        min_2_idx = find_min_pos_type_611(diff_list, skip_list)
+        skip_list(1) = min_2_idx
+        min_3_idx = find_min_pos_type_611(diff_list, skip_list)
+        skip_list(2) = min_3_idx
+        min_4_idx = find_min_pos_type_611(diff_list, skip_list)
+        skip_list(3) = min_4_idx
+        min_5_idx = find_min_pos_type_611(diff_list, skip_list)
+        skip_list(4) = min_5_idx
+        'Checker
+        'List1.AddItem Str(min_1_idx) & " " & Str(min_2_idx) & " " & Str(min_3_idx) & " " & Str(min_4_idx) & " " & Str(min_5_idx)
+    
+        If mode = "Majority_Voting" Then
+            
+            vote_1 = TRNA(8, min_1_idx)
+            vote_2 = TRNA(8, min_2_idx)
+            vote_3 = TRNA(8, min_3_idx)
+            vote_4 = TRNA(8, min_4_idx)
+            vote_5 = TRNA(8, min_5_idx)
+            
+            candidate_0 = 0
+            candidate_1 = 0
+            
+            If vote_1 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If vote_2 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If vote_3 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If vote_4 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If vote_5 = 0 Then
+                candidate_0 = candidate_0 + 1
+            Else
+                candidate_1 = candidate_1 + 1
+            End If
+            
+            If candidate_0 > candidate_1 Then
+                pred_ans = 0
+            Else
+                pred_ans = 1
+            End If
+            
+            ' Checker
+            'List1.AddItem Str(pred_ans) & " " & Str(TSTA(8, i))
+            'List1.AddItem Str(TSTA(8, i))
+            'List1.AddItem Str(i)
+            If pred_ans = TSTA(8, ii) Then
+                ACC_Count = ACC_Count + 1
+            Else
+                ACC_Count = ACC_Count
+            End If
+
+        ElseIf mode = "Weighted_Voting" Then
+            
+            vote_1 = TRNA(8, min_1_idx)
+            vote_2 = TRNA(8, min_2_idx)
+            vote_3 = TRNA(8, min_3_idx)
+            vote_4 = TRNA(8, min_4_idx)
+            vote_5 = TRNA(8, min_5_idx)
+            
+            diff_1 = diff_list(min_1_idx)
+            diff_2 = diff_list(min_2_idx)
+            diff_3 = diff_list(min_3_idx)
+            diff_4 = diff_list(min_4_idx)
+            diff_5 = diff_list(min_5_idx)
+            
+            candidate_0_float = 0
+            candidate_1_float = 0
+            
+            If vote_1 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_1 * diff_1)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_1 * diff_1)
+            End If
+            
+            If vote_2 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_2 * diff_2)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_2 * diff_2)
+            End If
+            
+            If vote_3 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_3 * diff_3)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_3 * diff_3)
+            End If
+            
+            If vote_4 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_4 * diff_4)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_4 * diff_4)
+            End If
+            
+            If vote_5 = 0 Then
+                candidate_0_float = candidate_0_float + 1 / (diff_5 * diff_5)
+            Else
+                candidate_1_float = candidate_1_float + 1 / (diff_5 * diff_5)
+            End If
+            
+            If candidate_0_float > candidate_1_float Then
+                pred_ans = 0
+            Else
+                pred_ans = 1
+            End If
+            
+            If pred_ans = TSTA(8, ii) Then
+                ACC_Count = ACC_Count + 1
+            Else
+                ACC_Count = ACC_Count
+            End If
+            
+        End If
+        
+    Next
+    KNN_classifier_type_611 = ACC_Count
 End Function
 Private Function naive_bayes_classifier(TSTA, test_num, TRNA, train_num)
     Dim ACC_Count As Integer
@@ -1212,4 +1625,33 @@ Private Function find_min_pos_type_614(col, skip_list)
     Next
     
     find_min_pos_type_614 = min_idx
+End Function
+Private Function find_min_pos_type_611(col, skip_list)
+    
+    Dim var As Collection
+    Set var = New Collection
+    
+    Dim min_num As Double
+    Dim min_idx As Double
+    min_num = 100000
+    min_idx = 100000
+    
+    Dim toggle As Boolean
+    
+    For i = 0 To 611
+        toggle = False
+        For j = 0 To 4
+            If i = skip_list(j) Then
+                toggle = True
+            End If
+        Next
+        
+        If (col(i) < min_num) And (toggle = False) Then
+            min_num = col(i)
+            min_idx = i
+        End If
+        
+    Next
+    
+    find_min_pos_type_611 = min_idx
 End Function
