@@ -8,57 +8,6 @@ Begin VB.Form Partition
    LinkTopic       =   "Form2"
    ScaleHeight     =   10155
    ScaleWidth      =   12270
-   Begin VB.CommandButton Command3 
-      Caption         =   "Model 4: KNN + Weighted Vote"
-      BeginProperty Font 
-         Name            =   "新細明體"
-         Size            =   14.25
-         Charset         =   136
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   615
-      Left            =   8040
-      TabIndex        =   6
-      Top             =   720
-      Width           =   4095
-   End
-   Begin VB.CommandButton Command2 
-      Caption         =   "Model 3: KNN + Majority Vote"
-      BeginProperty Font 
-         Name            =   "新細明體"
-         Size            =   14.25
-         Charset         =   136
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   495
-      Left            =   8040
-      TabIndex        =   5
-      Top             =   120
-      Width           =   4095
-   End
-   Begin VB.CommandButton Command1 
-      Caption         =   "Model 2: Equal-Frequency + NBC"
-      BeginProperty Font 
-         Name            =   "新細明體"
-         Size            =   14.25
-         Charset         =   136
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   540
-      Left            =   3480
-      TabIndex        =   4
-      Top             =   720
-      Width           =   4335
-   End
    Begin VB.ListBox List1 
       BeginProperty Font 
          Name            =   "新細明體"
@@ -93,7 +42,7 @@ Begin VB.Form Partition
       Width           =   1935
    End
    Begin VB.CommandButton Partition 
-      Caption         =   "Model 1: Equal-Width + NBC"
+      Caption         =   "Click this button, and 4 algorithms and statistical tests will be done."
       BeginProperty Font 
          Name            =   "新細明體"
          Size            =   14.25
@@ -103,11 +52,11 @@ Begin VB.Form Partition
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   540
+      Height          =   1260
       Left            =   3480
       TabIndex        =   0
       Top             =   120
-      Width           =   4335
+      Width           =   8295
    End
    Begin VB.Label Label1 
       Caption         =   "Input file :"
